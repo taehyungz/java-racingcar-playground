@@ -18,6 +18,6 @@ public class StringCalculator {
     }
 
     private String[] getSplittedInput(String input) {
-        return input.split(",");
+        return input.split("[,:]");
     }
 }

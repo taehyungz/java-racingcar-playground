@@ -2,6 +2,7 @@ package calculator;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EmptySource;
@@ -39,5 +40,14 @@ class StringAddCalculatorTest {
         int result = sut.sum(input);
 
         Assertions.assertThat(result).isEqualTo(answer);
+    }
+
+    @Test
+    void String_can_be_splitted_by_colon() {
+        String input = "1,2:3";
+
+        int result = sut.sum(input);
+
+        Assertions.assertThat(result).isEqualTo(6);
     }
 }
