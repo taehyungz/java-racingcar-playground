@@ -1,5 +1,6 @@
 package calculator;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -10,7 +11,17 @@ public class StringCalculator {
             return 0;
         }
         String[] splittedInput = getSplittedInput(input);
+        validateInputContainsPositiveOrZero(splittedInput);
         return getSum(splittedInput);
+    }
+
+    private void validateInputContainsPositiveOrZero(String[] splittedInput) {
+        Arrays.stream(splittedInput)
+                .filter(s -> Integer.parseInt(s) < 0)
+                .findAny()
+                .ifPresent(s -> {
+                    throw new RuntimeException();
+                });
     }
 
     private int getSum(String[] splittedInput) {

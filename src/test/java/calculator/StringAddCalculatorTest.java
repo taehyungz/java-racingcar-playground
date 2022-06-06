@@ -8,6 +8,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class StringAddCalculatorTest {
 
     private StringCalculator sut;
@@ -58,5 +60,12 @@ class StringAddCalculatorTest {
         int result = sut.splitAndSum(input);
 
         Assertions.assertThat(result).isEqualTo(6);
+    }
+
+    @Test
+    void If_given_string_contains_negative_number_then_throw_runtime_exception() {
+        String input = "-1,2,3";
+
+        assertThrows(RuntimeException.class, () -> sut.splitAndSum(input));
     }
 }
