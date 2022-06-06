@@ -21,7 +21,7 @@ class StringAddCalculatorTest {
     @NullSource
     @EmptySource
     void Sum_of_null_or_empty_string_returns_zero(String input) {
-        int result = sut.sum(input);
+        int result = sut.splitAndSum(input);
 
         Assertions.assertThat(result).isZero();
     }
@@ -29,7 +29,7 @@ class StringAddCalculatorTest {
     @ParameterizedTest
     @CsvSource(value = {"1,1", "2,2", "3,3"})
     void Sum_of_one_number_returns_input(String input, int answer) {
-        int result = sut.sum(input);
+        int result = sut.splitAndSum(input);
 
         Assertions.assertThat(result).isEqualTo(answer);
     }
@@ -37,7 +37,7 @@ class StringAddCalculatorTest {
     @ParameterizedTest
     @CsvSource(value = {"'1,2',3", "'1,2,3',6"})
     void Sum_of_string_with_comma_returns_sum_of_each_number(String input, int answer) {
-        int result = sut.sum(input);
+        int result = sut.splitAndSum(input);
 
         Assertions.assertThat(result).isEqualTo(answer);
     }
@@ -46,7 +46,16 @@ class StringAddCalculatorTest {
     void String_can_be_splitted_by_colon() {
         String input = "1,2:3";
 
-        int result = sut.sum(input);
+        int result = sut.splitAndSum(input);
+
+        Assertions.assertThat(result).isEqualTo(6);
+    }
+
+    @Test
+    void Calculator_can_use_custome_separator() {
+        String input = "//;\n1;2;3";
+
+        int result = sut.splitAndSum(input);
 
         Assertions.assertThat(result).isEqualTo(6);
     }

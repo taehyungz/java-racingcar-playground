@@ -1,7 +1,11 @@
 package calculator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
 public class StringCalculator {
-    public int sum(String input) {
+    public int splitAndSum(String input) {
         if (input == null || input.isEmpty()) {
             return 0;
         }
@@ -10,14 +14,17 @@ public class StringCalculator {
     }
 
     private int getSum(String[] splittedInput) {
-        int sum = 0;
-        for (String number : splittedInput) {
-            sum += Integer.parseInt(number);
-        }
-        return sum;
+        return Stream.of(splittedInput)
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
 
     private String[] getSplittedInput(String input) {
+        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(input);
+        if (m.find()) {
+            String customDelimiter = m.group(1);
+            return m.group(2).split(customDelimiter);
+        }
         return input.split("[,:]");
     }
 }
